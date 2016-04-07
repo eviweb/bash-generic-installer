@@ -1,5 +1,5 @@
 #! /bin/bash
-# linker utilities
+# linker library
 
 # create a link
 BGI::linker::createLink()
@@ -14,6 +14,20 @@ BGI::linker::createLink()
       BGI::guards::ensureParents "${target}"
       ln -s "${src}" "${target}"
       exitcode=0
+    fi
+
+    return ${exitcode}
+}
+
+# remove a link
+BGI::linker::removeLink()
+{
+    local target="$1"
+    local exitcode=1
+
+    if BGI::guards::ensureExists "${target}"; then
+        unlink "${target}"
+        exitcode=0
     fi
 
     return ${exitcode}

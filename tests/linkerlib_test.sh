@@ -64,7 +64,7 @@ testLinkerCreateLink()
     BGI::linker::createLink "${src}" "${target}"
     local exitcode=$?
 
-    assertEquals "exit code should be 0" 0 ${exitcode}
+    assertSuccess ${exitcode}
     assertInstalled "${target}"
 }
 
@@ -76,7 +76,7 @@ testLinkerCreateMissingTargetParentDirectory()
     BGI::linker::createLink "${src}" "${target}"
     local exitcode=$?
 
-    assertEquals "exit code should be 0" 0 ${exitcode}
+    assertSuccess ${exitcode}
     assertInstalled "${target}"
 }
 
@@ -89,7 +89,7 @@ testLinkerDoesNotCreateLinkAndWarnsIfSourceDoesNotExist()
     BGI::linker::createLink "${src}" "${target}" >${FSTDOUT} 2>${FSTDERR}
     local exitcode=$?
 
-    assertEquals "exit code should be 1" 1 ${exitcode}
+    assertFailure ${exitcode}
     assertWarningMessage "${errmsg}"
     assertNotInstalled "${target}"
 }
@@ -105,7 +105,33 @@ testLinkerDoesNotCreateLinkAndWarnsIfTargetAlreadyExists()
     BGI::linker::createLink "${src}" "${target}" >${FSTDOUT} 2>${FSTDERR}
     local exitcode=$?
 
-    assertEquals "exit code should be 1" 1 ${exitcode}
+    assertFailure ${exitcode}
+    assertWarningMessage "${errmsg}"
+    assertNotInstalled "${target}"
+}
+
+testLinkerRemoveLink()
+{
+    local src="$(fixturesdir)/dummy1.sh"
+    local target="$(workingdir)/dummy1.sh"
+
+    BGI::linker::createLink "${src}" "${target}"
+    BGI::linker::removeLink "${target}"
+    local exitcode=$?
+
+    assertSuccess ${exitcode}
+    assertNotInstalled "${target}"
+}
+
+testLinkerWarnsIfLinkToRemoveDoesNotExist()
+{
+    local target="$(workingdir)/dummy1.sh"
+    local errmsg="Warning: '${target}' does not exist."
+
+    BGI::linker::removeLink "${target}" >${FSTDOUT} 2>${FSTDERR}
+    local exitcode=$?
+
+    assertFailure ${exitcode}
     assertWarningMessage "${errmsg}"
     assertNotInstalled "${target}"
 }
