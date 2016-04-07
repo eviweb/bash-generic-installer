@@ -58,3 +58,24 @@ assertNotContains()
 {
     assertFalse "'$1' does not contain '$2'" "echo '$1' | grep -oe '$2'"
 }
+
+# assert an exit code value
+assertExitCode()
+{
+    local expected="$1"
+    local actual="$2"
+
+    assertEquals "exit code should be ${expected}" ${expected} ${actual}
+}
+
+# assert a failure code
+assertFailure()
+{
+    assertNotEquals "exit code should be different from 0" 0 $1
+}
+
+# assert a success code
+assertSuccess()
+{
+    assertEquals "exit code should be equal to 0" 0 $1
+}
