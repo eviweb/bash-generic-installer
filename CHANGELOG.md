@@ -10,4 +10,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - libraries:
     + guards
     + io
+    + linker
 
