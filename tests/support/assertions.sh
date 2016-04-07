@@ -9,6 +9,23 @@ assertInstalled()
     assertTrue "The real file exists ${realfile}" "[ -e ${realfile} ]"
 }
 
+# assert a file is not installed
+assertNotInstalled()
+{
+    local file="$1"
+
+    assertFalse "${file} does not exist" "[ -h ${file} ]"
+}
+
+# assert an error message is warned
+assertWarningMessage()
+{
+    local message="$1"
+
+    assertNull "no message to standard output" "$(cat ${FSTDOUT})"
+    assertSame "the expected message is displayed" "${message}" "$(cat ${FSTDERR})"
+}
+
 # assert a file installation failed with a given error message
 assertFailedWithErrorMessage()
 {
