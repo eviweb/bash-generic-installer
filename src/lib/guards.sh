@@ -38,3 +38,17 @@ BGI::guards::ensureParents()
         mkdir -p "${parent}"
     fi
 }
+
+# ensure a file is part of the project and can be removed
+BGI::guards::ensureRemovable()
+{
+    local file="$1"
+    local realpath="$(readlink -f $1)"
+    local removable=1
+
+    [ -h ${file} ] && 
+        (echo "${realpath}" | grep "$(BGI::projectdir)" &> /dev/null) &&
+        removable=0
+ 
+    return ${removable}
+}
