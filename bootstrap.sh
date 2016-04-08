@@ -16,6 +16,11 @@ BGI::installerdir()
     echo "$(dirname $(readlink -f $BASH_SOURCE))/src/installers"
 }
 
+BGI::projectdir()
+{
+    echo "$(dirname $(readlink -f ${BASH_SOURCE[-1]}))"
+}
+
 BGI::load()
 {
     local pattern="$1/*.sh"

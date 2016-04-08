@@ -61,6 +61,20 @@ unloadBootstrap()
     unset -f $(compgen -A function -X \!'BGI::*')
 }
 
+createIncluder()
+{
+    local includer=$(workingdir)/includer.sh
+
+    cat << EOF > ${includer}
+#! /bin/bash
+. "$(maindir)/bootstrap.sh"
+echo \$(BGI::projectdir)
+EOF
+    chmod +x ${includer}
+
+    ${includer}
+}
+
 onSetUp()
 {
     unloadBootstrap
@@ -82,6 +96,11 @@ testBootstrapProvidesPathUtilities()
     assertSame "BGI::maindir should provide the path of the bash generic installer main directory" "$(BGI::maindir)" "$(maindir)"
     assertSame "BGI::libdir should provide the path of the provided libraries" "$(BGI::libdir)" "$(srcdir)/lib"
     assertSame "BGI::installerdir should provide the path of the provided installers" "$(BGI::installerdir)" "$(srcdir)/installers"
+}
+
+testBootstrapProvidesProjectDir()
+{
+    assertSame "BGI::projectdir should provide the main directory of the project" "$(workingdir)" "$(createIncluder)"
 }
 
 testBootstrapLoadsShFilesFromDir()
