@@ -93,9 +93,9 @@ testBootstrapProvidesPathUtilities()
 {
     loadBootstrap
 
-    assertSame "BGI::maindir should provide the path of the bash generic installer main directory" "$(BGI::maindir)" "$(maindir)"
-    assertSame "BGI::libdir should provide the path of the provided libraries" "$(BGI::libdir)" "$(srcdir)/lib"
-    assertSame "BGI::installerdir should provide the path of the provided installers" "$(BGI::installerdir)" "$(srcdir)/installers"
+    assertSame "BGI::maindir should provide the path of the bash generic installer main directory" "$(maindir)" "$(BGI::maindir)"
+    assertSame "BGI::libdir should provide the path of the provided libraries" "$(srcdir)/lib" "$(BGI::libdir)"
+    assertSame "BGI::installerdir should provide the path of the provided installers" "$(srcdir)/installers" "$(BGI::installerdir)"
 }
 
 testBootstrapProvidesProjectDir()
