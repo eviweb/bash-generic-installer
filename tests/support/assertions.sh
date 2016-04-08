@@ -26,6 +26,13 @@ assertWarningMessage()
     assertSame "the expected message is displayed" "${message}" "$(cat ${FSTDERR})"
 }
 
+# assert a warning message
+assertWarning()
+{
+    assertNull "no message to standard output" "$(cat ${FSTDOUT})"
+    assertTrue "a warning message is displayed" "cat ${FSTDERR} | grep -oi warning"
+}
+
 # assert a file installation failed with a given error message
 assertFailedWithErrorMessage()
 {
