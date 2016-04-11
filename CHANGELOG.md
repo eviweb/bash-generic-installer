@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - bootstrap
 - libraries:
     + cleaner
+    + cli
     + guards
     + io
     + linker
