@@ -1,12 +1,23 @@
 #! /bin/bash
 # recursive installer acceptations
 
+# runners for common tests
+BGI::runner::installRecursively()
+{
+    BGI::installer::installRecursively "$(dirname $1)" "$(dirname $2)"
+}
+
+BGI::runner::uninstallRecursively()
+{
+    BGI::installer::uninstallRecursively "$(dirname $1)"
+}
+
 # recursively install from a given directory
-BGI::testInstall::installRecursively::story01()
+BGI::testCustomInstall::installRecursively::story01()
 {
     story_description "recursively install from a given directory"
 
-    local src="$(fixturesdir)"
+    local src="$(BGI::projectdir)"
     local target="$(workingdir)"
     local files=$(listFiles "${src}")
     BGI::installer::installRecursively "${src}" "${target}"
@@ -19,11 +30,11 @@ BGI::testInstall::installRecursively::story01()
 }
 
 # recursive install should warn about existing files, but continue to install the others
-BGI::testInstall::installRecursively::story02()
+BGI::testCustomInstall::installRecursively::story02()
 {
     story_description "recursive install should warn about existing files, but continue to install the others"
 
-    local src="$(fixturesdir)"
+    local src="$(BGI::projectdir)"
     local target="$(workingdir)"
     local files=$(listFiles "${src}")
     touch "${target}/dummy4"
@@ -44,11 +55,11 @@ BGI::testInstall::installRecursively::story02()
 }
 
 # recursively uninstall from a given directory
-BGI::testUninstall::uninstallRecursively::story01()
+BGI::testCustomUninstall::uninstallRecursively::story01()
 {
     story_description "recursively uninstall from a given directory"
 
-    local src="$(fixturesdir)"
+    local src="$(BGI::projectdir)"
     local target="$(workingdir)"
     local files=$(listFiles "${src}")
     BGI::installer::installRecursively "${src}" "${target}"
@@ -62,11 +73,11 @@ BGI::testUninstall::uninstallRecursively::story01()
 }
 
 # recursively uninstall only project files
-BGI::testUninstall::uninstallRecursively::story02()
+BGI::testCustomUninstall::uninstallRecursively::story02()
 {
     story_description "recursively uninstall only project files"
 
-    local src="$(fixturesdir)"
+    local src="$(BGI::projectdir)"
     local target="$(workingdir)"
     local files=$(listFiles "${src}")
     touch "${target}/dummy4"
@@ -83,18 +94,4 @@ BGI::testUninstall::uninstallRecursively::story02()
             assertTrue "${target}/${filename} should exist" "[ -e ${target}/${filename} ]"
         fi
     done
-}
-
-# recursively uninstall cleans up empty directories
-BGI::testUninstall::uninstallRecursively::story03()
-{
-    story_description "recursively uninstall cleans up empty directories"
-
-    local src="$(fixturesdir)"
-    local target="$(workingdir)"
-    local cleaned="${target}/subdir"
-    BGI::installer::installRecursively "${src}" "${target}" >${FSTDOUT} 2>${FSTDERR}
-    BGI::installer::uninstallRecursively "${target}"
-
-    assertFalse "${cleaned} should be removed" "[ -e ${cleaned} ]"
 }

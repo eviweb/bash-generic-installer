@@ -77,7 +77,28 @@ getUninstallers()
     declare -p uninstallers
 }
 
-getStories()
+getInstallerRunners()
+{
+    declare -a runners=( $(compgen -A function -X \!'BGI::runner::install*') )
+    declare -p runners
+}
+
+getUninstallerRunners()
+{
+    declare -a runners=( $(compgen -A function -X \!'BGI::runner::uninstall*') )
+    declare -p runners
+}
+
+getCommonStories()
+{
+    local context="$1"
+    local pattern="BGI::${context}::common::story*"
+
+    declare -a stories=( $(compgen -A function -X \!"${pattern}") )
+    declare -p stories
+}
+
+getCustomStories()
 {
     local target="$1"
     local context="$2"
@@ -87,16 +108,30 @@ getStories()
     declare -p stories
 }
 
-runStories()
+runCommonStories()
+{
+    local story="$1"
+    local runnerprovider="$2"
+    local runners
+    eval "$(${runnerprovider})"
+
+    story_title "${story}"
+    for runner in ${runners[@]}; do
+        prepareTestEnvironment
+        ${story} "${runner}"
+    done
+}
+
+runCustomStories()
 {
     local target="$1"
     local context="$2"
     local stories
-    eval "$(getStories ${target} ${context})"
-    
+    eval "$(getCustomStories ${target} ${context})"
+      
+    [ ${#stories[@]} -gt 0 ] && acceptance_title "${target}"
     for story in ${stories[@]}; do
         story_title "${story}"
-
         prepareTestEnvironment
         ${story}
     done
@@ -105,25 +140,43 @@ runStories()
 ################ Unit tests ################
 testInstall()
 {
-    local installers
-    eval "$(getInstallers)"
- 
-    for installer in ${installers[@]}; do
-        acceptance_title "${installer}"
+    local stories
+    eval "$(getCommonStories ${FUNCNAME})"
 
-        runStories "${installer}" "${FUNCNAME}"
+    acceptance_title "An installer should install files"
+    for story in ${stories[@]}; do
+        runCommonStories "${story}" "getInstallerRunners"
     done
 }
 
 testUninstall()
 {
+    local stories
+    eval "$(getCommonStories ${FUNCNAME})"
+
+    acceptance_title "An uninstaller should remove files"
+    for story in ${stories[@]}; do
+        runCommonStories "${story}" "getUninstallerRunners"
+    done
+}
+
+testCustomInstall()
+{
+    local installers
+    eval "$(getInstallers)"
+ 
+    for installer in ${installers[@]}; do
+        runCustomStories "${installer}" "${FUNCNAME}"
+    done
+}
+
+testCustomUninstall()
+{
     local uninstallers
     eval "$(getUninstallers)"
  
     for uninstaller in ${uninstallers[@]}; do
-        acceptance_title "${uninstaller}"
-
-        runStories "${uninstaller}" "${FUNCNAME}"
+        runCustomStories "${uninstaller}" "${FUNCNAME}"
     done
 }
 
