@@ -61,16 +61,16 @@ BGI::installer::uninstallSingleFile "/my/link"
 ```bash
 # Example
 # taken this project file structure:
-# /my/project/filesdir
+# /my/project/filesdir:
 #   + file1
-#   + subdir
+#   + subdir:
 #       + file2
 #       + file3
 BGI::installer::installRecursively "/my/project/filesdir" "/my/targetdir"
 # this results in:
 # /my/targetdir:
 #   + file1 -> /my/project/filesdir/file1
-#   + subdir
+#   + subdir:
 #       + file2 -> /my/project/filesdir/subdir/file2
 #       + file3 -> /my/project/filesdir/subdir/file3
 ```
