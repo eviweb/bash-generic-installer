@@ -62,6 +62,15 @@ testHandleOptions()
     assertEquals "running command with '-a -b' flags results in 1:1" "1:1" "$(${cmd} -a -b)"
 }
 
+testHandleOptionsProvidesRemainingArgsHandler()
+{
+    local cmd="$(workingdir)/clirun"
+    local expected="my expected args"
+    buildCommand "${cmd}" "$(defaultCommandContent)\necho \$ARGS"
+    
+    assertSame "args contains remaining args" "${expected}" "$(${cmd} -a ${expected})"
+}
+
 testUsageUsingHelpFlag()
 {
     local cmd="$(workingdir)/clirun"

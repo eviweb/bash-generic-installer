@@ -8,18 +8,18 @@ handleOptions()
     shift
     eval $(${option_provider})
 
-    local OPTS="${!options[@]}"
-    OPTS=":h${OPTS/ /}"
+    local OPTIONS="${!options[@]}"
+    OPTIONS=":h${OPTIONS/ /}"
 
     for var in "${options[@]}"; do
         eval "$var=0"
     done
 
-    while getopts ${OPTS} option; do
+    while getopts ${OPTIONS} option; do
         if [[ "${option}" == "h" ]]; then
             usage
             exit 0
-        elif [[ "${OPTS}" =~ "${option}" ]]; then
+        elif [[ "${OPTIONS}" =~ "${option}" ]]; then
             eval "${options[${option}]}=1"
         else
             usage >&2
@@ -27,4 +27,6 @@ handleOptions()
         fi
     done
     shift $(($OPTIND - 1 ))
+
+    ARGS="$@"
 }
