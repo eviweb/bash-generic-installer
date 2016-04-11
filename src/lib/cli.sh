@@ -30,3 +30,24 @@ handleOptions()
 
     ARGS="$@"
 }
+
+default_usage()
+{
+    echo "
+    Usage:
+        ./install.sh [OPTIONS] INSTALLDIR
+    Options:        
+        -u      uninstall files
+        -h      display this message
+    Install/uninstall files to/from INSTALLDIR
+"
+}
+
+default_option_provider()
+{
+    declare -A options=(
+        [u]="UNINSTALL"
+    )
+
+    declare -p options
+}
