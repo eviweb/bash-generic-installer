@@ -35,6 +35,7 @@ APIs
     - [Cleaner](/docs/cleanerlib.md)
     - [CLI](/docs/clilib.md)
     - [Guards](/docs/guardslib.md)
+    - [IO](/docs/iolib.md)
 
 License
 -------
