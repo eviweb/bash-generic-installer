@@ -17,6 +17,6 @@ defaultCommandContent()
 . $(srcdir)/lib/cli.sh
 ${usage}
 ${options}
-handleOptions \"option_provider\" \$@
+handleOptions \"option_provider\" \"usage\" \$@
 "
 }
