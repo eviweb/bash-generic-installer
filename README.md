@@ -36,6 +36,7 @@ APIs
     - [CLI](/docs/clilib.md)
     - [Guards](/docs/guardslib.md)
     - [IO](/docs/iolib.md)
+    - [Linker](/docs/linkerlib.md)
 
 License
 -------
