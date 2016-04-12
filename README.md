@@ -33,6 +33,7 @@ APIs
     >    - empty directories on the path of a removed link are also removed
 * Libraries:
     - [Cleaner](/docs/cleanerlib.md)
+    - [CLI](/docs/clilib.md)
 
 License
 -------
