@@ -1,4 +1,5 @@
 ### Single file installer
+The single file installer, as its name suggests, provides functions to install and uninstall a single file.
 * **BGI::installer::installSingleFile _"$srcfile"_ _"$targetlink"_**: creates a target link to a file of the current project
 ```bash
 # Example

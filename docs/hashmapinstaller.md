@@ -1,4 +1,5 @@
 ### Hashmap installer
+The hashmap installer provides a way to perform an installation using a map that describes the relation between the source file and its destination.
 #### The map provider
 Hashmap functions expect a map provider as argument to get the required map.    
 A map provider is a function that will be evaluated during runtime. It has to provide an associative array named `map`.    

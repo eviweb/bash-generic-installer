@@ -1,4 +1,6 @@
 ### Recursive installer
+The recursive installer permits to install a whole directory tree to a target directory.    
+The structure of the source tree is preserved in its destination.
 * **BGI::installer::installRecursively _"$srcdir"_ _"$targetdir"_**: recursively creates target links to each file from a given directory of the current project
 ```bash
 # Example
