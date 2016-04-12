@@ -58,12 +58,7 @@ integration_installer()
     echo "
 . $(maindir)/bootstrap.sh
 
-usage()
-{
-    echo \"$(default_usage)\"
-}
-
-handleOptions \"default_option_provider\" \"\$@\"
+handleOptions \"default_option_provider\" \"default_usage\" \"\$@\"
 
 if ((\${UNINSTALL})); then
     BGI::installer::uninstallRecursively \"\$ARGS\"
