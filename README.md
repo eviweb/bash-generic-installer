@@ -8,6 +8,7 @@ This package aims to provide a generic way to install packages in a shell enviro
 
 Installation
 ------------
+### As Git submodule
 From within your project directory, run:    
 `git submodule add --name bash-generic-installer https://github.com/eviweb/bash-generic-installer lib/bash-generic-installer`    
 
