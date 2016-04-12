@@ -117,6 +117,10 @@ else
 fi
 ```
 
+Contributing
+------------
+If you want to contribute please take a look at [Contributing](/CONTRIBUTING.md)
+
 License
 -------
 This project is licensed under the terms of the [MIT License](/LICENSE)
