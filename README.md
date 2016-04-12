@@ -2,6 +2,10 @@ Bash Generic Installer
 ======================
 This package aims to provide a generic way to install packages in a shell environment.    
 
+##### Health status
+[![Travis CI - Build Status](https://travis-ci.org/eviweb/bash-generic-installer.svg)](https://travis-ci.org/eviweb/bash-generic-installer)
+[![Github - Last tag](https://img.shields.io/github/tag/eviweb/bash-generic-installer.svg)](https://github.com/eviweb/bash-generic-installer/tags)
+
 Installation
 ------------
 From within your project directory, run:    
