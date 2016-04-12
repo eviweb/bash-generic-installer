@@ -31,6 +31,8 @@ APIs
     >    - already existing files or links are preserved
     >    - missing directories in the path of a link are created
     >    - empty directories on the path of a removed link are also removed
+* Libraries:
+    - [Cleaner](/docs/cleanerlib.md)
 
 License
 -------
